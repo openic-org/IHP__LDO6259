@@ -1,31 +1,41 @@
 ** sch_path: /home/designer/shared/ihp2603/analog/top/LDO6259.sch
-.subckt LDO6259 DVSS VDD VSS IOVDD IOVSS AVSS SCLK SEN SDI SDO VREF IREF RSTB DVDD AVDD
-*.PININFO DVSS:B VDD:B VSS:B IOVDD:B IOVSS:B AVSS:B SCLK:B SEN:B SDI:B SDO:B VREF:B IREF:B RSTB:B DVDD:B AVDD:B
-x1 SDO net2 SDI net3 SEN net4 SCLK net5 IOVDD IOVSS net6 net7 net8 AVDD VSS VDD RSTB IREF VREF AVSS DVDD DVSS DVSS padframe
-x2 VDD net9 net10 DVDD net11 net1 net1 DVSS dldo
-* noconn #net9
-* noconn #net10
-* noconn #net11
-* noconn #net5
-* noconn #net4
-* noconn #net3
-* noconn #net2
-* noconn #net7
-* noconn #net8
-* noconn #net6
+.subckt LDO6259 DVSS VDD VSS IOVDD IOVSS ALDOEN ALDOSEL DLDOSEL VREF IREF BGPVDD DVDD AVDD
+*.PININFO DVSS:B VDD:B VSS:B IOVDD:B IOVSS:B ALDOEN:B ALDOSEL:B DLDOSEL:B VREF:B IREF:B BGPVDD:B DVDD:B AVDD:B
+x6 VDD VSS IOVDD IOVSS DVDD DVSS ALDOEN ALDOSEL DLDOSEL AVDD VREF IREF BGPVDD top_core_pads
 .ends
 
-* expanding   symbol:  padframe.sym # of pins=23
+* expanding   symbol:  top_core_pads.sym # of pins=13
+** sym_path: /home/designer/shared/ihp2603/analog/top/top_core_pads.sym
+** sch_path: /home/designer/shared/ihp2603/analog/top/top_core_pads.sch
+.subckt top_core_pads VDD VSS IOVDD IOVSS DVDD DVSS ALDOEN ALDOSEL DLDOSEL AVDD VREF IREF BGPVDD
+*.PININFO DVSS:B VDD:B VSS:B IOVDD:B IOVSS:B ALDOEN:B ALDOSEL:B DLDOSEL:B VREF:B IREF:B BGPVDD:B DVDD:B AVDD:B
+x1 DLDOSEL DLDOSELres ALDOSEL ALDOSELres ALDOEN ALDOENres IOVDD IOVSS net9 net10 net11 AVDD VSS VDD BGPVDD IREF VREF DVSS DVDD
++ DVSS DVSS padframe
+x2 VDD net3 net4 DVDD DLDOSELres net1 net1 DVSS dldo
+* noconn #net10
+* noconn #net11
+* noconn #net9
+x3 net2 net2 BGPVDD net3 DVSS net12 net4 IREF VREF bgp_test
+* noconn #net12
+x4 VDD AVDD net8 net6 net7 net7 DVSS ALDOSELres ALDOENres aldo
+x5 net5 net5 BGPVDD net6 DVSS net13 net8 bgp
+* noconn #net13
+RR12 DLDOSELres DVSS 1000 $SUB=DVSS $[rhigh] w=0.5e-6 l=600e-6 b=0 m=1
+RR1 VDD ALDOENres 1000 $SUB=DVSS $[rhigh] w=0.5e-6 l=600e-6 b=0 m=1
+RR2 ALDOSELres DVSS 1000 $SUB=DVSS $[rhigh] w=0.5e-6 l=600e-6 b=0 m=1
+.ends
+
+
+* expanding   symbol:  padframe.sym # of pins=21
 ** sym_path: /home/designer/shared/ihp2603/analog/top/padframe.sym
 ** sch_path: /home/designer/shared/ihp2603/analog/top/padframe.sch
-.subckt padframe SDO SDOc2p SDI SDIp2c SEN SENp2c SCLK SCLKp2c IOVDD IOVSS RSTBres VREFres IREFres AVDD VSS VDD RSTB IREF VREF
-+ AVSS DVDD DVSS SUB
-*.PININFO DVSS:B DVDD:B SDO:B SDOc2p:B SDI:B SDIp2c:B SEN:B SENp2c:B SCLK:B SCLKp2c:B VDD:B VSS:B IOVDD:B IOVSS:B AVDD:B AVSS:B
-*+ VREF:B IREF:B RSTB:B VREFres:B IREFres:B RSTBres:B SUB:B
+.subckt padframe DLDOSEL DLDOSELres ALDOSEL ALDOSELres ALDOEN ALDOENres IOVDD IOVSS BGPVDDres VREFres IREFres AVDD VSS VDD BGPVDD
++ IREF VREF AVSS DVDD DVSS SUB
+*.PININFO DVSS:B DVDD:B ALDOEN:B ALDOENres:B ALDOSEL:B ALDOSELres:B DLDOSEL:B DLDOSELres:B VDD:B VSS:B IOVDD:B IOVSS:B AVDD:B
+*+ AVSS:B VREF:B IREF:B BGPVDD:B VREFres:B IREFres:B BGPVDDres:B SUB:B
 x5 IOVDD DVDD DVSS SUB IOVSS IOVSS IOVSS sg13g2_Corner
 x11[1] IOVDD IOVSS DVDD IOVSS IOVSS DVSS SUB sg13g2_Filler1000
 x11[0] IOVDD IOVSS DVDD IOVSS IOVSS DVSS SUB sg13g2_Filler1000
-x16[4] IOVDD IOVSS DVDD IOVSS IOVSS DVSS SUB sg13g2_Filler1000
 x16[3] IOVDD IOVSS DVDD IOVSS IOVSS DVSS SUB sg13g2_Filler1000
 x16[2] IOVDD IOVSS DVDD IOVSS IOVSS DVSS SUB sg13g2_Filler1000
 x16[1] IOVDD IOVSS DVDD IOVSS IOVSS DVSS SUB sg13g2_Filler1000
@@ -36,10 +46,6 @@ x16[0] IOVDD IOVSS DVDD IOVSS IOVSS DVSS SUB sg13g2_Filler1000
 * noconn IOVSS
 x1 DVSS DVDD SUB IOVSS IOVDD IOVSS sg13g2_IOPadVss
 x6 DVSS DVDD SUB IOVSS IOVDD IOVSS sg13g2_IOPadVdd
-x14 DVSS DVDD SUB IOVSS IOVDD SDOc2p SDO IOVDD sg13g2_IOPadOut16mA
-x2 DVSS DVDD SUB IOVSS IOVDD IOVSS SDI SDIp2c sg13g2_IOPadIn
-x3 DVSS DVDD SUB IOVSS IOVDD IOVSS SEN SENp2c sg13g2_IOPadIn
-x4 DVSS DVDD SUB IOVSS IOVDD IOVSS SCLK SCLKp2c sg13g2_IOPadIn
 x7 DVSS DVDD SUB IOVSS IOVDD sg13g2_IOPadVddVss
 x8 AVSS SUB DVSS AVDD DVSS sg13g2_IOPadAVdd
 x9 AVSS SUB DVSS AVDD sg13g2_IOPadAVss
@@ -48,13 +54,16 @@ x12 AVSS VREF AVDD SUB VREFres DVSS AVDD sg13g2_IOPadASig
 * noconn AVDD
 * noconn AVSS
 x13 AVSS IREF AVDD SUB IREFres DVSS AVDD sg13g2_IOPadASig
-x16 AVSS RSTB AVDD SUB RSTBres DVSS AVDD sg13g2_IOPadASig
+x16 AVSS BGPVDD AVDD SUB BGPVDDres DVSS AVDD sg13g2_IOPadASig
 x17 DVSS net1 SUB VSS VDD sg13g2_IOPadIOVss
 x18 DVSS net1 SUB VSS VDD VSS sg13g2_IOPadIOVddAccess
 x19 VDD VSS net2 VSS VSS DVSS SUB sg13g2_Filler1000
 * noconn #net2
 x20 DVSS DVDD SUB IOVSS IOVDD sg13g2_IOPadIOVss
 x21 DVSS DVDD SUB IOVSS IOVDD IOVSS sg13g2_IOPadIOVdd
+x10 IOVDD DVSS DLDOSEL DVDD SUB DLDOSELres IOVSS IOVDD sg13g2_IOPadAnalog
+x2 IOVDD DVSS ALDOSEL DVDD SUB ALDOSELres IOVSS IOVDD sg13g2_IOPadAnalog
+x3 IOVDD DVSS ALDOEN DVDD SUB ALDOENres IOVSS IOVDD sg13g2_IOPadAnalog
 .ends
 
 
@@ -66,6 +75,39 @@ x21 DVSS DVDD SUB IOVSS IOVDD IOVSS sg13g2_IOPadIOVdd
 x1 vdd_in vctrl vdd_out dldo_pass
 x2 vdd_out sel_vsens vdd_in dgnd vsens dgnd dldo_rdiv_12r
 x3 vdd_in vctrl in_1u vbg vfb dgnd dldo_otasymb
+.ends
+
+
+* expanding   symbol:  bgp_test.sym # of pins=9
+** sym_path: /home/designer/shared/ihp2603/analog/core/bgp_test.sym
+** sch_path: /home/designer/shared/ihp2603/analog/core/bgp_test.sch
+.subckt bgp_test fba fbb VDD VBGP VSS ISRC1UA ISNK1UA IREFOUT VBGPOUT
+*.PININFO VDD:B VSS:B VBGP:B fba:B fbb:B ISRC1UA:B ISNK1UA:B IREFOUT:B VBGPOUT:B
+x1 VDD fbb VBGP net2 net1 VSS ISRC1UA ISNK1UA IREFOUT bgpcore_test
+x2 VDD net1 fba VSS net2 bgpopamp
+CC1 fbb VSS cap_cmim w=50e-6 l=70e-6 m=4
+x3 VDD VBGP VBGPOUT VSS VBGPOUT bgpopamp
+.ends
+
+
+* expanding   symbol:  aldo/aldo.sym # of pins=9
+** sym_path: /home/designer/shared/ihp2603/analog/core/aldo/aldo.sym
+** sch_path: /home/designer/shared/ihp2603/analog/core/aldo/aldo.sch
+.subckt aldo avdd vreg ibiasp_1u vref vfb_i vfb_o avss vctrl en
+*.PININFO avdd:B avss:B vref:I vfb_i:I vreg:O ibiasp_1u:B vfb_o:O vctrl:I en:I
+x1 avdd vreg vref vfb_i avss en ibiasp_1u ota_2stage
+x2 vreg vctrl vfb_o avss avss avdd ldo_rdiv
+.ends
+
+
+* expanding   symbol:  bgp.sym # of pins=7
+** sym_path: /home/designer/shared/ihp2603/analog/core/bgp.sym
+** sch_path: /home/designer/shared/ihp2603/analog/core/bgp.sch
+.subckt bgp fba fbb VDD VBGP VSS ISRC1UA ISNK1UA
+*.PININFO VDD:B VSS:B VBGP:B fba:B fbb:B ISRC1UA:B ISNK1UA:B
+x1 VDD fbb VBGP net2 net1 VSS ISRC1UA ISNK1UA bgpcore
+x2 VDD net1 fba VSS net2 bgpopamp
+CC1 fbb VSS cap_cmim w=50e-6 l=70e-6 m=4
 .ends
 
 
@@ -121,34 +163,6 @@ x1 iovss vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd
 x2 vdd net1 ! sg13g2_RCClampResistor
 x3 vdd iovss1 net1 net2 ! sg13g2_RCClampInverter_noptap
 * noconn iovdd
-.ends
-
-
-* expanding   symbol:  sg13g2_IOPadOut16mA.sym # of pins=8
-** sym_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_IOPadOut16mA.sym
-** sch_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_IOPadOut16mA.sch
-.subckt sg13g2_IOPadOut16mA vss vdd sub iovss iovdd1 c2p pad iovdd
-*.PININFO iovdd1:B vss:B vdd:B sub:B iovss:B iovdd:B pad:B c2p:B
-R2 vss sub ptap1 A=24p P=160.6u
-R1 iovss sub ptap1 A=4413.9448p P=953.3u
-x2 iovdd sub pad pad sub sg13g2_DCPDiode_noptap
-x1 pad iovss pad iovdd sub sg13g2_DCNDiode
-x3 iovdd1 vss c2p net1 vdd sub net2 sg13g2_GateLevelUpInv_noptap
-x4 net2 iovss pad pad pad pad sub sg13g2_Clamp_N8N8D
-x5 net1 iovdd iovss pad pad pad pad sub sg13g2_Clamp_P8N8D_noptap
-.ends
-
-
-* expanding   symbol:  sg13g2_IOPadIn.sym # of pins=8
-** sym_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_IOPadIn.sym
-** sch_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_IOPadIn.sch
-.subckt sg13g2_IOPadIn vss vdd ! iovss iovdd iovss1 pad p2c
-*.PININFO iovdd:B vss:B vdd:B !:B iovss:B iovss1:B pad:B p2c:B
-R2 vss ! ptap1 A=24p P=160.6u
-R1 iovss1 ! ptap1 A=5416.1304p P=746.28u
-x4 iovdd iovss1 pad p2c vdd vss ! sg13g2_LevelDown_noptap
-x2 iovdd ! pad pad ! sg13g2_DCPDiode_noptap
-x1 pad iovss pad iovdd ! sg13g2_DCNDiode
 .ends
 
 
@@ -265,6 +279,22 @@ x3 iovdd iovss1 net1 net2 ! sg13g2_RCClampInverter_noptap
 .ends
 
 
+* expanding   symbol:  sg13g2_IOPadAnalog.sym # of pins=8
+** sym_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_IOPadAnalog.sym
+** sch_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_IOPadAnalog.sch
+.subckt sg13g2_IOPadAnalog iovdd1 vss pad vdd ! padres iovss iovdd
+*.PININFO padres:B iovdd:B vss:B vdd:B !:B iovss:B pad:B iovdd1:B
+R2 vss ! ptap1 A=23.85p P=159.6u
+x1 iovdd iovss pad pad pad pad pad pad pad pad pad pad ! sg13g2_Clamp_P20N0D_noptap
+x2 iovdd ! pad pad ! sg13g2_DCPDiode_noptap
+x3 iovss pad pad pad pad pad pad pad pad pad pad ! sg13g2_Clamp_N20N0D
+x4 pad iovss pad iovdd ! sg13g2_DCNDiode
+x5 padres iovdd1 iovss pad ! sg13g2_SecondaryProtection
+* noconn vdd
+R1 iovss ! ptap1 A=4373.9448p P=1112.3u
+.ends
+
+
 * expanding   symbol:  dldo_pass.sym # of pins=3
 ** sym_path: /home/designer/shared/ihp2603/analog/core/dldo/dldo_pass.sym
 ** sch_path: /home/designer/shared/ihp2603/analog/core/dldo/dldo_pass.sch
@@ -313,6 +343,136 @@ MM6 vgnl vgnl gnd gnd sg13_hv_nmos w=2.5u l=1u ng=1 m=1
 MM7 net1 vgnr gnd gnd sg13_hv_nmos w=2.5u l=1u ng=1 m=1
 MM12 vgp vgnl gnd gnd sg13_hv_nmos w=2.5u l=1u ng=1 m=1
 MM13 gnd net1 vout vout sg13_hv_pmos w=40u l=0.4u ng=8 m=1
+.ends
+
+
+* expanding   symbol:  bgpcore_test.sym # of pins=9
+** sym_path: /home/designer/shared/ihp2603/analog/core/bgpcore_test.sym
+** sch_path: /home/designer/shared/ihp2603/analog/core/bgpcore_test.sch
+.subckt bgpcore_test VDD Z VBGP X Y VSS ISRC1UA ISNK1UA IREFOUT
+*.PININFO VDD:B X:B Y:B Z:B VBGP:B ISRC1UA:B ISNK1UA:B VSS:B IREFOUT:B
+MM1 X Z VDD VDD sg13_lv_pmos w=160u l=1u ng=16 m=1
+MM2 Y Z VDD VDD sg13_lv_pmos w=160u l=1u ng=16 m=1
+QQ1 VSS VSS X pnpMPA a=1e-10 p=4e-05 m=1
+QQ2 VSS VSS net1 pnpMPA a=1e-10 p=4e-05 m=8
+MM3 VBGP Z VDD VDD sg13_lv_pmos w=160u l=1u ng=16 m=1
+RR12 VBGP VSS 1000 $SUB=VSS $[rhigh] w=1e-6 l=405e-6 b=0 m=1
+MM12 net2 net2 X VSS sg13_lv_nmos w=0.5u l=5u ng=1 m=1
+MM13 net3 net3 net2 VSS sg13_lv_nmos w=0.5u l=5u ng=1 m=1
+MM14 VDD VDD net3 VSS sg13_lv_nmos w=0.5u l=5u ng=1 m=1
+MM4 net4 Z VDD VDD sg13_lv_pmos w=160u l=1u ng=16 m=1
+MM5 ISRC1UA Z VDD VDD sg13_lv_pmos w=160u l=1u ng=16 m=1
+MM6 net4 net4 VSS VSS sg13_lv_nmos w=1.6u l=10u ng=1 m=1
+MM7 ISNK1UA net4 VSS VSS sg13_lv_nmos w=1.6u l=10u ng=1 m=1
+RR1 Y net1 1000 $SUB=VSS $[rhigh] w=1e-6 l=90e-6 b=0 m=1
+RR2 Y VSS 1000 $SUB=VSS $[rhigh] w=1e-6 l=744.58e-6 b=0 m=1
+RR3 X VSS 1000 $SUB=VSS $[rhigh] w=1e-6 l=744.58e-6 b=0 m=1
+RR4 VSS VSS 1000 $SUB=VSS $[rhigh] w=1e-6 l=45e-6 b=0 m=2
+RR5 VSS VSS 1000 $SUB=VSS $[rhigh] w=1e-6 l=24.58e-6 b=0 m=2
+MM8 VDD VDD VDD VDD sg13_lv_pmos w=10u l=1u ng=1 m=4
+MM9 VSS VSS VSS VSS sg13_lv_nmos w=1.6u l=10u ng=1 m=2
+MM10 IREFOUT net4 VSS VSS sg13_lv_nmos w=1.6u l=10u ng=1 m=10
+MM11 VSS VSS VSS VSS sg13_lv_nmos w=1.6u l=10u ng=1 m=2
+.ends
+
+
+* expanding   symbol:  bgpopamp.sym # of pins=5
+** sym_path: /home/designer/shared/ihp2603/analog/core/bgpopamp.sym
+** sch_path: /home/designer/shared/ihp2603/analog/core/bgpopamp.sch
+.subckt bgpopamp VDD VIP VO VSS VIM
+*.PININFO VIM:B VIP:B VSS:B VDD:B VO:B
+MM4 net2 net2 VSS VSS sg13_lv_nmos w=4u l=2u ng=1 m=1
+MM5 net1 net2 net3 VSS sg13_lv_nmos w=4u l=2u ng=1 m=2
+RR14 net3 VSS 1000 $SUB=VSS $[rhigh] w=1e-6 l=260e-6 b=0 m=1
+MM7 net2 net1 VDD VDD sg13_lv_pmos w=4u l=2u ng=1 m=1
+MM8 net1 net1 VDD VDD sg13_lv_pmos w=4u l=2u ng=1 m=1
+MM6 net5 net5 net2 VSS sg13_lv_nmos w=0.5u l=5u ng=1 m=1
+MM9 net4 net4 net5 VSS sg13_lv_nmos w=0.5u l=5u ng=1 m=1
+MM10 net1 net1 net6 VSS sg13_lv_nmos w=0.5u l=5u ng=1 m=1
+MM11 net6 net6 net4 VSS sg13_lv_nmos w=0.5u l=5u ng=1 m=1
+MM1 net8 VIP net7 VSS sg13_lv_nmos w=10u l=0.5u ng=2 m=2
+MM2 VO VIM net7 VSS sg13_lv_nmos w=10u l=0.5u ng=2 m=2
+MM3 net8 net8 VDD VDD sg13_lv_pmos w=4u l=2u ng=1 m=2
+MM12 VO net8 VDD VDD sg13_lv_pmos w=4u l=2u ng=1 m=2
+MM13 net7 net2 VSS VSS sg13_lv_nmos w=4u l=2u ng=1 m=8
+MM14 VSS VSS VSS VSS sg13_lv_nmos w=4u l=2u ng=1 m=2
+MM15 VDD VDD VDD VDD sg13_lv_pmos w=4u l=2u ng=1 m=2
+MM16 net7 VSS VSS VSS sg13_lv_nmos w=10u l=0.5u ng=2 m=1
+.ends
+
+
+* expanding   symbol:  aldo/ota_2stage.sym # of pins=7
+** sym_path: /home/designer/shared/ihp2603/analog/core/aldo/ota_2stage.sym
+** sch_path: /home/designer/shared/ihp2603/analog/core/aldo/ota_2stage.sch
+.subckt ota_2stage avdd vreg vref vfb_i avss en ibiasp_1u
+*.PININFO avdd:B avss:B vref:I vfb_i:I vreg:O ibiasp_1u:B en:I
+MM0 pbias pbias avdd avdd sg13_hv_pmos w=2u l=2u ng=1 m=1
+MM5 vtail pbias avdd avdd sg13_hv_pmos w=2u l=2u ng=1 m=2
+MM2 vo1 vfb_i vtail vtail sg13_hv_pmos w=2u l=0.5u ng=1 m=10
+MM1 vgn vref vtail vtail sg13_hv_pmos w=2u l=0.5u ng=1 m=10
+MM9 vo2 pbias avdd avdd sg13_hv_pmos w=2u l=2u ng=1 m=4
+MM1dum vtail vtail vtail vtail sg13_hv_pmos w=2u l=0.5u ng=1 m=4
+MM3dum avss avss avss avss sg13_hv_nmos w=2u l=1u ng=1 m=2
+MM0dum avdd avdd avdd avdd sg13_hv_pmos w=2u l=2u ng=1 m=2
+MM3 vgn vgn avss avss sg13_hv_nmos w=4u l=1u ng=2 m=1
+MM4 vo1 vgn avss avss sg13_hv_nmos w=4u l=1u ng=2 m=1
+MM10 pbias en ibiasp_1u avss sg13_hv_nmos w=8u l=0.45u ng=4 m=1
+MM10dum pbias pbias pbias avss sg13_hv_nmos w=2u l=0.45u ng=1 m=2
+MM6 vo2 vo1 avss avss sg13_hv_nmos w=20u l=0.5u ng=10 m=1
+MM6dum avss avss avss avss sg13_hv_nmos w=2u l=0.5u ng=1 m=2
+MM8 vreg vo2 avdd avdd sg13_hv_pmos w=4u l=0.4u ng=1 m=480
+MM7 vo2 vo2 avdd avdd sg13_hv_pmos w=4u l=0.4u ng=1 m=1
+MM8dum avdd vo2 avdd avdd sg13_hv_pmos w=4u l=0.4u ng=1 m=17
+.ends
+
+
+* expanding   symbol:  aldo/ldo_rdiv.sym # of pins=6
+** sym_path: /home/designer/shared/ihp2603/analog/core/aldo/ldo_rdiv.sym
+** sch_path: /home/designer/shared/ihp2603/analog/core/aldo/ldo_rdiv.sch
+.subckt ldo_rdiv vout vctrl vfb avss sub! avdd
+*.PININFO vout:B avss:B vfb:O vctrl:I sub!:B avdd:B
+RR1 vout net7 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+MM1 vdrain vctrl vout avdd sg13_hv_pmos w=5u l=0.5u ng=1 m=6
+RR2 net7 vdrain 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+RR3 vdrain net6 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+RR4 net6 net5 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+RR5 net5 net4 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+RR6 net4 vfb 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+RR7 vfb net3 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+RR8 net3 net2 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+RR9 net2 net1 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+RR10 net1 avss 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+RR11 avss avss 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+MM1dum vout vout vout avdd sg13_hv_pmos w=5u l=0.5u ng=1 m=2
+RR12 avss avss 1000 $SUB=sub! $[rhigh] w=0.5e-6 l=4.35e-6 b=0 m=1
+.ends
+
+
+* expanding   symbol:  bgpcore.sym # of pins=8
+** sym_path: /home/designer/shared/ihp2603/analog/core/bgpcore.sym
+** sch_path: /home/designer/shared/ihp2603/analog/core/bgpcore.sch
+.subckt bgpcore VDD Z VBGP X Y VSS ISRC1UA ISNK1UA
+*.PININFO VDD:B X:B Y:B Z:B VBGP:B ISRC1UA:B ISNK1UA:B VSS:B
+MM1 X Z VDD VDD sg13_lv_pmos w=160u l=1u ng=16 m=1
+MM2 Y Z VDD VDD sg13_lv_pmos w=160u l=1u ng=16 m=1
+QQ1 VSS VSS X pnpMPA a=1e-10 p=4e-05 m=1
+QQ2 VSS VSS net1 pnpMPA a=1e-10 p=4e-05 m=8
+MM3 VBGP Z VDD VDD sg13_lv_pmos w=160u l=1u ng=16 m=1
+RR12 VBGP VSS 1000 $SUB=VSS $[rhigh] w=1e-6 l=405e-6 b=0 m=1
+MM12 net2 net2 X VSS sg13_lv_nmos w=0.5u l=5u ng=1 m=1
+MM13 net3 net3 net2 VSS sg13_lv_nmos w=0.5u l=5u ng=1 m=1
+MM14 VDD VDD net3 VSS sg13_lv_nmos w=0.5u l=5u ng=1 m=1
+MM4 net4 Z VDD VDD sg13_lv_pmos w=160u l=1u ng=16 m=1
+MM5 ISRC1UA Z VDD VDD sg13_lv_pmos w=160u l=1u ng=16 m=1
+MM6 net4 net4 VSS VSS sg13_lv_nmos w=1.6u l=10u ng=1 m=1
+MM7 ISNK1UA net4 VSS VSS sg13_lv_nmos w=1.6u l=10u ng=1 m=1
+RR1 Y net1 1000 $SUB=VSS $[rhigh] w=1e-6 l=90e-6 b=0 m=1
+RR2 Y VSS 1000 $SUB=VSS $[rhigh] w=1e-6 l=744.58e-6 b=0 m=1
+RR3 X VSS 1000 $SUB=VSS $[rhigh] w=1e-6 l=744.58e-6 b=0 m=1
+RR4 VSS VSS 1000 $SUB=VSS $[rhigh] w=1e-6 l=45e-6 b=0 m=2
+RR5 VSS VSS 1000 $SUB=VSS $[rhigh] w=1e-6 l=24.58e-6 b=0 m=2
+MM8 VDD VDD VDD VDD sg13_lv_pmos w=10u l=1u ng=1 m=4
+MM9 VSS VSS VSS VSS sg13_lv_nmos w=1.6u l=10u ng=1 m=2
 .ends
 
 
@@ -391,56 +551,6 @@ MM3 out in supply supply sg13_hv_pmos w=350u l=0.5u ng=50 m=1
 .ends
 
 
-* expanding   symbol:  sg13g2_GateLevelUpInv_noptap.sym # of pins=7
-** sym_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_GateLevelUpInv_noptap.sym
-** sch_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_GateLevelUpInv_noptap.sch
-.subckt sg13g2_GateLevelUpInv_noptap iovdd vss core pgate vdd sub ngate
-*.PININFO iovdd:B vss:B pgate:B core:B vdd:B sub:B ngate:B
-x1 iovdd vss core pgate vdd sub sg13g2_LevelUpInv_noptap
-x2 iovdd vss core ngate vdd sub sg13g2_LevelUpInv_noptap
-.ends
-
-
-* expanding   symbol:  sg13g2_Clamp_N8N8D.sym # of pins=4
-** sym_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_Clamp_N8N8D.sym
-** sch_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_Clamp_N8N8D.sch
-.subckt sg13g2_Clamp_N8N8D gate iovss pad[3] pad[2] pad[1] pad[0] sub
-*.PININFO iovss:B gate:B pad[3:0]:B sub:B
-R1 iovss sub ptap1 A=55.7736p P=328.08u
-DD1 sub gate dantenna l=0.78u w=0.78u
-MM1 pad[0] gate iovss sub sg13_hv_nmos w=8.8u l=0.6u ng=2 m=1
-MM2 pad[1] gate iovss sub sg13_hv_nmos w=8.8u l=0.6u ng=2 m=1
-MM3 pad[2] gate iovss sub sg13_hv_nmos w=8.8u l=0.6u ng=2 m=1
-MM4 pad[3] gate iovss sub sg13_hv_nmos w=8.8u l=0.6u ng=2 m=1
-.ends
-
-
-* expanding   symbol:  sg13g2_Clamp_P8N8D_noptap.sym # of pins=5
-** sym_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_Clamp_P8N8D_noptap.sym
-** sch_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_Clamp_P8N8D_noptap.sch
-.subckt sg13g2_Clamp_P8N8D_noptap gate iovdd iovss pad[3] pad[2] pad[1] pad[0] sub
-*.PININFO iovss:B gate:B iovdd:B pad[3:0]:B sub:B
-MM1 pad[0] gate iovdd iovdd sg13_hv_pmos w=26.64u l=0.6u ng=4 m=1
-DD1 gate iovdd dpantenna l=0.48u w=0.48u
-MM2 pad[1] gate iovdd iovdd sg13_hv_pmos w=26.64u l=0.6u ng=4 m=1
-MM3 pad[2] gate iovdd iovdd sg13_hv_pmos w=26.64u l=0.6u ng=4 m=1
-MM4 pad[3] gate iovdd iovdd sg13_hv_pmos w=26.64u l=0.6u ng=4 m=1
-.ends
-
-
-* expanding   symbol:  sg13g2_LevelDown_noptap.sym # of pins=7
-** sym_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_LevelDown_noptap.sym
-** sch_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_LevelDown_noptap.sch
-.subckt sg13g2_LevelDown_noptap iovdd iovss pad core vdd vss !
-*.PININFO iovdd:B vss:B core:B pad:B vdd:B iovss:B !:B
-MM5 net2 net1 vdd vdd sg13_hv_pmos w=4.65u l=0.45u ng=1 m=1
-MM6 net2 net1 vss ! sg13_hv_nmos w=2.65u l=0.45u ng=1 m=1
-MM7 core net2 vss ! sg13_lv_nmos w=2.75u l=0.13u ng=1 m=1
-MM8 core net2 vdd vdd sg13_lv_pmos w=4.75u l=0.13u ng=1 m=1
-x1 net1 iovdd iovss pad ! sg13g2_SecondaryProtection_noptap
-.ends
-
-
 * expanding   symbol:  sg13g2_DCPDiode.sym # of pins=5
 ** sym_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_DCPDiode.sym
 ** sch_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_DCPDiode.sch
@@ -500,32 +610,5 @@ R1 iovss ! ptap1 A=9.0304p P=53.12u
 DD1 core iovdd dpantenna l=4.98u w=0.64u
 DD2 ! core dantenna l=3.1u w=0.64u
 RR3 pad core $SUB=sub! $[rppd] w=1e-6 l=2e-6 b=0 m=1
-.ends
-
-
-* expanding   symbol:  sg13g2_LevelUpInv_noptap.sym # of pins=6
-** sym_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_LevelUpInv_noptap.sym
-** sch_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_LevelUpInv_noptap.sch
-.subckt sg13g2_LevelUpInv_noptap iovdd vss in out vdd sub
-*.PININFO iovdd:B vss:B out:B in:B vdd:B sub:B
-MM1 net1 in vss sub sg13_hv_nmos w=1.9u l=0.45u ng=1 m=1
-MM3 net1 net2 iovdd iovdd sg13_hv_pmos w=0.3u l=0.45u ng=1 m=1
-MM4 net2 net1 iovdd iovdd sg13_hv_pmos w=0.3u l=0.45u ng=1 m=1
-MM5 out net2 iovdd iovdd sg13_hv_pmos w=3.9u l=0.45u ng=1 m=1
-MM2 net2 net3 vss sub sg13_hv_nmos w=1.9u l=0.45u ng=1 m=1
-MM6 out net2 vss sub sg13_hv_nmos w=1.9u l=0.45u ng=1 m=1
-MM7 net3 in vss sub sg13_lv_nmos w=2.75u l=0.13u ng=1 m=1
-MM8 net3 in vdd vdd sg13_lv_pmos w=4.75u l=0.13u ng=1 m=1
-.ends
-
-
-* expanding   symbol:  sg13g2_SecondaryProtection_noptap.sym # of pins=5
-** sym_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_SecondaryProtection_noptap.sym
-** sch_path: /home/designer/shared/ihp2603/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem/sg13g2_SecondaryProtection_noptap.sch
-.subckt sg13g2_SecondaryProtection_noptap core iovdd iovss pad !
-*.PININFO iovss:B core:B pad:B iovdd:B !:B
-DD1 core iovdd dpantenna l=4.98u w=0.64u
-DD2 ! core dantenna l=3.1u w=0.64u
-RR1 core pad $SUB=sub! $[rppd] w=1e-6 l=2e-6 b=0 m=1
 .ends
 
